@@ -1,8 +1,8 @@
-# Prexml
+# Prexml - A pure Ruby XML library
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/prexml`. To experiment with that code, run `bin/console` for an interactive prompt.
+Prexml aims to be an XML library implemented in pure Ruby. While gems like Nokogiri and Oga exist, they require installing native extensions which in some situations can be cumbersome to deal with. The Ruby standard library includes an XML library, REXML, but its documentation and support are seriously lacking.
 
-TODO: Delete this and the text above, and describe your gem
+Prexml aims to be your XML library of choice when you don't want to deal with native extensions, and speed of processing is not your first concern.
 
 ## Installation
 
