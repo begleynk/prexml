@@ -2,7 +2,7 @@ module Prexml
   class Document
 
     def initialize(nodes: [])
-      @nodes = []
+      @nodes = Node::Children.new(self)
 
       nodes.each {|n| add(n) }
     end
@@ -11,13 +11,21 @@ module Prexml
       @nodes
     end
 
+    def children
+      @nodes
+    end
+
+    def []=(index, node)
+      @nodes[index] = node
+    end
+
     def <<(node)
-      add(node)
+      @nodes.add(node)
     end
 
     def add(node)
       node.document = self
-      @nodes.concat([node])
+      @nodes.add(node)
     end
 
     def ==(other)

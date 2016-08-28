@@ -24,6 +24,23 @@ module Prexml
         @nodes
       end
 
+      def replace(old_node, *new_nodes)
+        index = @nodes.find_index(old_node)
+        replace_at(index, *new_nodes)
+      end
+
+      def []=(index, new_node)
+        replace(index, new_node)
+      end
+
+      def replace_at(index, *new_nodes)
+        old_node = @nodes.delete_at(index)
+        old_node.parent = nil
+
+        @nodes.insert(index, *new_nodes[0])
+        new_nodes[0].each {|n| n.parent = parent }
+      end
+
       def each(&block)
         @nodes.each do |n|
           yield n if block_given?
@@ -35,7 +52,7 @@ module Prexml
       end
 
       def inspect
-        "#<Prexml::Node::Children @nodes=#{@nodes.inspect}"
+        @nodes.inspect
       end
 
       def ==(other)

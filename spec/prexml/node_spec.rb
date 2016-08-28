@@ -155,4 +155,41 @@ describe Prexml::Node do
       expect(child.document).to eq nil
     end
   end
+
+  context 'replace' do
+    it 'swaps a node for another node' do
+      node1 = Prexml::Node.new(name: 'foo')
+      node2 = Prexml::Node.new(name: 'bar')
+      node3 = Prexml::Node.new(name: 'baz')
+
+      doc = Prexml::Document.new(nodes: [node1, node2])
+
+      node1.replace(node3)
+
+      expect(doc).to be == Prexml::Document.new(nodes: [node3, node2])
+      expect(node3.parent).to eq doc
+      expect(node3.document).to eq doc
+      expect(node1.parent).to eq nil
+      expect(node1.document).to eq doc
+    end
+
+    it 'swaps a node for multiple nodes' do
+      node1 = Prexml::Node.new(name: 'foo')
+      node2 = Prexml::Node.new(name: 'bar')
+      node3 = Prexml::Node.new(name: 'baz')
+      node4 = Prexml::Node.new(name: 'fiz')
+
+      doc = Prexml::Document.new(nodes: [node1, node2])
+
+      node1.replace(node3, node4)
+
+      expect(doc).to be == Prexml::Document.new(nodes: [node3, node4, node2])
+      expect(node3.parent).to eq doc
+      expect(node3.document).to eq doc
+      expect(node4.parent).to eq doc
+      expect(node4.document).to eq doc
+      expect(node1.parent).to eq nil
+      expect(node1.document).to eq doc
+    end
+  end
 end

@@ -68,6 +68,10 @@ module Prexml
       @document = doc
     end
 
+    def replace(*new_nodes)
+      parent.children.replace(self, new_nodes)
+    end
+
     def root
       if parent.nil?
         self
