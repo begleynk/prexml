@@ -1,4 +1,3 @@
-require 'prexml/node/children'
 require 'prexml/node/attribute_list'
 
 module Prexml
@@ -11,7 +10,7 @@ module Prexml
 
       @name        = name
       @attributes  = AttributeList.new(self, attributes)
-      @child_nodes = Children.new(self, children)
+      @child_nodes = NodeList.new(self, children)
       @value       = value
       @parent      = nil
     end

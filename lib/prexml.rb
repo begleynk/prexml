@@ -1,5 +1,6 @@
 require "prexml/version"
 require "prexml/node"
+require "prexml/node_list"
 require "prexml/parser"
 require "prexml/document"
 

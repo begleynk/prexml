@@ -2,7 +2,7 @@ module Prexml
   class Document
 
     def initialize(nodes: [])
-      @nodes = Node::Children.new(self)
+      @nodes = NodeList.new(self)
 
       nodes.each {|n| add(n) }
     end
