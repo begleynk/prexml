@@ -105,6 +105,15 @@ describe Prexml::Node do
       expect(node.root).to eq node
     end
 
+    it 'can also be root if the parent is a document' do
+      node = Prexml::Node.new(name: 'foo')
+      doc  = Prexml::Document.new(nodes: [node])
+
+      expect(node.root?).to eq true
+      expect(node.document).to eq doc
+      expect(node.parent).to eq doc
+    end
+
     it 'can traverse its parents until it finds the root' do
       parent = Prexml::Node.new(name: 'parent')
       child1 = Prexml::Node.new(name: 'child1')
@@ -120,6 +129,30 @@ describe Prexml::Node do
       expect(parent.root).to eq parent
       expect(child1.root).to eq parent
       expect(child2.root).to eq parent
+    end
+  end
+
+  context 'document' do
+    it 'can belong to a document' do
+      node  = Prexml::Node.new(name: 'foo')
+      child = Prexml::Node.new(name: 'bar')
+      doc   = Prexml::Document.new
+
+      node.children.add(child)
+      doc.add(node)
+
+      expect(node.document).to eq doc
+      expect(child.document).to eq doc
+    end
+
+    it 'does not have to belong to a document' do
+      node  = Prexml::Node.new(name: 'foo')
+      child = Prexml::Node.new(name: 'bar')
+
+      node.children.add(child)
+
+      expect(node.document).to eq nil
+      expect(child.document).to eq nil
     end
   end
 end

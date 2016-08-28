@@ -49,7 +49,23 @@ module Prexml
     end
 
     def root?
-      parent.nil?
+      parent.nil? || parent.is_a?(Prexml::Document)
+    end
+
+    def document
+      # Traverse the tree to the root, and if the root belongs
+      # to a document, return that. If not, return nil.
+      if @document.nil?
+        parent.document unless parent.nil?
+      else
+        @document
+      end
+    end
+
+    def document=(doc)
+      raise 'Invalid Document' unless doc.is_a?(Prexml::Document)
+      @parent = doc if root?
+      @document = doc
     end
 
     def root

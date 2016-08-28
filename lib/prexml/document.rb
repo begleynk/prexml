@@ -2,7 +2,9 @@ module Prexml
   class Document
 
     def initialize(nodes: [])
-      @nodes = nodes
+      @nodes = []
+
+      nodes.each {|n| add(n) }
     end
 
     def nodes
@@ -14,6 +16,7 @@ module Prexml
     end
 
     def add(node)
+      node.document = self
       @nodes.concat([node])
     end
 
