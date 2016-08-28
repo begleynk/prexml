@@ -47,10 +47,6 @@ module Prexml
       @parent = node
     end
 
-    def root?
-      parent.nil? || parent.is_a?(Prexml::Document)
-    end
-
     def document
       # Traverse the tree to the root, and if the root belongs
       # to a document, return that. If not, return nil.
@@ -68,7 +64,15 @@ module Prexml
     end
 
     def replace(*new_nodes)
-      parent.children.replace(self, new_nodes)
+      if parent
+        parent.children.replace(self, new_nodes)
+      else
+        raise 'Cannot replace node with no parent. Use assignment instead.'
+      end
+    end
+
+    def root?
+      parent.nil? || parent.is_a?(Prexml::Document)
     end
 
     def root

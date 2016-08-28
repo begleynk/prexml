@@ -191,5 +191,14 @@ describe Prexml::Node do
       expect(node1.parent).to eq nil
       expect(node1.document).to eq doc
     end
+
+    it 'cannot swap an element that does not have a parent' do
+      node1 = Prexml::Node.new(name: 'foo')
+      node2 = Prexml::Node.new(name: 'bar')
+
+      expect do
+        node1.replace(node2)
+      end.to raise_error 'Cannot replace node with no parent. Use assignment instead.'
+    end
   end
 end
