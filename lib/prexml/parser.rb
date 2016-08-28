@@ -9,8 +9,8 @@ module Prexml
     EQUALS     = '='.freeze
     QUOTES     = ['"', '\''].freeze
 
-    def initialize(file)
-      @iterator  = File.open(file, 'r').each_char
+    def initialize(iterator)
+      @iterator  = iterator
       @tree      = Document.new
     end
 
