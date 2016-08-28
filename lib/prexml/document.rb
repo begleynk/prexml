@@ -28,6 +28,22 @@ module Prexml
       @nodes.add(node)
     end
 
+    def next
+      @nodes.next
+    end
+
+    def next_sibling
+      nil
+    end
+
+    def previous
+      @nodes.previous
+    end
+
+    def previous_sibling
+      nil
+    end
+
     def ==(other)
       other.is_a?(Prexml::Document) && (other.nodes == nodes)
     end

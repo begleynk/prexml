@@ -47,6 +47,42 @@ module Prexml
       @parent = node
     end
 
+    def next
+      if children.any?
+        children.first
+      else
+        parent.children.next(self)
+      end
+    end
+
+    def next_sibling
+      if parent
+        parent.children.next_sibling(self)
+      else
+        nil
+      end
+    end
+
+    def previous
+      prev_sib = previous_sibling
+
+      if prev_sib.nil?
+        unless parent.nil? || parent.is_a?(Prexml::Document)
+          parent
+        end
+      else
+        prev_sib
+      end
+    end
+
+    def previous_sibling
+      if parent
+        parent.children.previous_sibling(self)
+      else
+        nil
+      end
+    end
+
     def document
       # Traverse the tree to the root, and if the root belongs
       # to a document, return that. If not, return nil.
@@ -92,6 +128,7 @@ module Prexml
         other_node.attributes == attributes &&
         other_node.children   == children &&
         other_node.value      == value &&
+        other_node.name       == name &&
         other_node.parent     == parent
     end
 

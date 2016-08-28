@@ -201,4 +201,74 @@ describe Prexml::Node do
       end.to raise_error 'Cannot replace node with no parent. Use assignment instead.'
     end
   end
+
+  context 'next' do
+    it 'returns the next sibling if there are no children' do
+      node1 = Prexml::Node.new(name: 'foo')
+      node2 = Prexml::Node.new(name: 'bar')
+
+      Prexml::Document.new(nodes: [node1, node2])
+
+      expect(node1.next).to eq node2
+    end
+
+    it 'returns nil if there are no children and it is the last node' do
+      node1 = Prexml::Node.new(name: 'foo')
+      node2 = Prexml::Node.new(name: 'bar')
+
+      Prexml::Document.new(nodes: [node1, node2])
+
+      expect(node2.next).to eq nil
+    end
+
+    it 'returns the first child if the node has children' do
+      child = Prexml::Node.new(name: 'child')
+      node1 = Prexml::Node.new(name: 'foo', children: [child])
+      node2 = Prexml::Node.new(name: 'bar')
+
+      Prexml::Document.new(nodes: [node1, node2])
+
+      expect(node1.next).to eq child
+    end
+
+    it 'returns the sibling of the parent if the node is the last child' do
+      child = Prexml::Node.new(name: 'child')
+      node1 = Prexml::Node.new(name: 'foo', children: [child])
+      node2 = Prexml::Node.new(name: 'bar')
+
+      Prexml::Document.new(nodes: [node1, node2])
+
+      expect(child.next).to eq node2
+    end
+  end
+
+  context 'previous' do
+    it 'returns the previous sibling' do
+      node1 = Prexml::Node.new(name: 'foo')
+      node2 = Prexml::Node.new(name: 'bar')
+
+      Prexml::Document.new(nodes: [node1, node2])
+
+      expect(node2.previous).to eq node1
+    end
+
+    it 'returns nil if it is the first node' do
+      node1 = Prexml::Node.new(name: 'foo')
+      node2 = Prexml::Node.new(name: 'bar')
+
+      Prexml::Document.new(nodes: [node1, node2])
+
+      expect(node1.previous).to eq nil
+    end
+
+    it 'returns the parent if the node is the first child' do
+      child = Prexml::Node.new(name: 'child')
+      node1 = Prexml::Node.new(name: 'foo')
+      node2 = Prexml::Node.new(name: 'bar', children: [child])
+
+      Prexml::Document.new(nodes: [node1, node2])
+
+      expect(child.previous).to eq node2
+    end
+  end
 end
