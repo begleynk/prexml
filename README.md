@@ -1,8 +1,12 @@
 # Prexml - A pure Ruby XML library
 
-Prexml aims to be an XML library implemented in pure Ruby. While gems like Nokogiri and Oga exist, they require installing native extensions which in some situations can be cumbersome to deal with. The Ruby standard library includes an XML library, REXML, but its documentation and support are seriously lacking.
+Prexml is an XML library implemented in pure Ruby. While gems like Nokogiri and Oga exist, they require installing native extensions which in some situations can be cumbersome to deal with. The Ruby standard library includes an XML library, REXML, but its documentation and support are seriously lacking.
 
-Prexml aims to be your XML library of choice when you don't want to deal with native extensions, and speed of processing is not your first concern.
+Prexml could be an XML library of choice when you don't want to deal with native extensions, and speed of processing is not your first concern.
+
+## Status
+
+This project is not actively maintained, and is not feature complete/ready for production.
 
 ## Installation
 
